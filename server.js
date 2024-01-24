@@ -1,24 +1,3 @@
-// const connectToMongo = require("./db");
-// const express = require('express');
-// var cors = require('cors')
-
-
-// connectToMongo();
-
-// const app = express()
-// const port = 5000
-
-// app.use(cors())
-// app.use(express.json())
-// // Available routes
-
-
-
-// app.listen(port, () => {
-//   console.log(`Restaurant mangement system backend listening on port http://localhost:${port}`)
-// })
-
-
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
@@ -43,6 +22,7 @@ app.use(morgan("dev"));
 
 //routes
 app.use("/api/items", require("./routes/itemRoutes"));
+app.use("/api/user", require("./routes/Auth"));
 
 //port
 const PORT = process.env.PORT || 8080;
