@@ -4,13 +4,14 @@
   "description": "restaurant management system for complete managing the restaurant",
   "main": "server.js",
   "scripts": {
-    "start":"node server.js",
-    "server":"nodemon server.js",
+    "start": "node server.js",
+    "server": "nodemon server.js",
     "seed": "node seeder.js"
   },
   "author": "avi",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "colors": "^1.4.0",
     "cors": "^2.8.5",

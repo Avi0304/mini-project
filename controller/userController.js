@@ -1,10 +1,11 @@
 const User = require("../models/User");
+const bcrypt = require('bcrypt');
 
 // login user
 const loginController = async (req, res) => {
   try {
-    const {userId,password} = req.body
-    const user = await User.findOne({userId,password,verified:false});
+    const {email,password} = req.body
+    const user = await User.findOne({email,password,verified:false});
     res.status(200).send("Login Successfully Done");
   } catch (error) {
     console.log(error);
@@ -15,7 +16,14 @@ const loginController = async (req, res) => {
 
 const registerController = async(req, res) =>{
     try {
-        const newUser = await User(req.body)
+        const {name,email,password} = req.body;
+        const hashedpassword =  await bcrypt.hash(password, 10);
+
+        const newUser = new User({
+            name,
+            email,
+            password: hashedpassword,
+        })
         await newUser.save()
         res.status(201).send("Account created successfully")
     } catch (error) {
