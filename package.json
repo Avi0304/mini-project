@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
     "seed": "node seeder.js"
   },
   "author": "avi",
@@ -14,6 +16,7 @@
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
     "colors": "^1.4.0",
+    "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "dotenv": "^16.3.2",
     "express": "^4.18.2",

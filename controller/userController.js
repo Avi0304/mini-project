@@ -17,6 +17,11 @@ const loginController = async (req, res) => {
 const registerController = async(req, res) =>{
     try {
         const {name,email,password} = req.body;
+
+        const existinguser = await User.findOne({email});
+        if(existinguser){
+          return res.status(400).send("User with same email already exist")
+        }
         const hashedpassword =  await bcrypt.hash(password, 10);
 
         const newUser = new User({
