@@ -4,10 +4,8 @@ import { Link } from "react-router-dom";
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
-  UserOutlined,
   LogoutOutlined,
   HomeOutlined,
-  CopyOutlined,
   UnorderedListOutlined,
 } from "@ant-design/icons";
 import "../style/DefaultLayout.css";
@@ -29,7 +27,7 @@ export default class DefaultLayout extends React.Component {
       <Layout>
         <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
           <div className="logo">
-            <h1 className="text-center text-light font-wight-bold mt-4">POS</h1>
+            <h1 className="text-center text-light font-wight-bold mt-4">Admin</h1>
           </div>
           <Menu
             theme="dark"
@@ -39,14 +37,8 @@ export default class DefaultLayout extends React.Component {
             <Menu.Item key="/" icon={<HomeOutlined />}>
               <Link to="/">Home</Link>
             </Menu.Item>
-            <Menu.Item key="/bills" icon={<CopyOutlined />}>
-              <Link to="/bills">Bills</Link>
-            </Menu.Item>
             <Menu.Item key="/items" icon={<UnorderedListOutlined />}>
-              <Link to="/items">Items</Link>
-            </Menu.Item>
-            <Menu.Item key="/customers" icon={<UserOutlined />}>
-              <Link to="/customers">Cutomers</Link>
+              <Link to="/item">Items</Link>
             </Menu.Item>
             <Menu.Item key="/logout" icon={<LogoutOutlined />}>
               Logout
