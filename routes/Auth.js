@@ -5,7 +5,7 @@ const router = express.Router()
 
 // routes
 //Method - get
-router.get('/login',loginController)
+router.post('/login',loginController)
 
 // Method - post
 router.post('/register', registerController)

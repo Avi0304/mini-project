@@ -16,7 +16,7 @@ const ItemList = ({ item }) => {
           />
         }
       >
-        <Meta title={item.name}/>
+        <Meta title={item.name} description={item.price}/>
       </Card>
     </div>
   );
