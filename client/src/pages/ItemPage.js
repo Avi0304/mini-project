@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DefaultLayout from "../components/DefaultLayout";
-
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { message } from "antd"; 
 
 const ItemPage = () => {
   const [items, setItems] = useState([]);
@@ -11,11 +12,19 @@ const ItemPage = () => {
     image: "",
     category: "",
   });
-  
+  const [editItem, setEditItem] = useState({
+    id: "",
+    name: "",
+    price: "",
+    image: "",
+    category: "",
+  });
+
   useEffect(() => {
     getallitems();
   }, []);
 
+  // Get All items
   const getallitems = async () => {
     try {
       const { data } = await axios.get("/api/items/get-item");
@@ -26,74 +35,112 @@ const ItemPage = () => {
     }
   };
 
+  // Add Items
   const additem = async () => {
     try {
       await axios.post("api/items/add-item", newItem);
       setNewItem({ name: "", price: "", category: "", image: "" });
       getallitems();
+      message.success("Item added successfully");
     } catch (error) {
       console.error("error adding item:", error);
+      message.error("something went wrong");
     }
   };
 
+  // Delete Item
   const deleteItem = async (itemId) => {
     try {
-      await axios.delete("/api/items/delete-item", { data: { itemId } });
-      getallitems(); // Refresh the item list after deletion
+      await axios.delete(`/api/items/delete-item/${itemId}`); // Use itemId._id
+      // Refresh the item list after deletion
+      getallitems();
+      message.success("Item deleted successfully");
     } catch (error) {
       console.error("Error deleting item:", error);
+      message.error("something went wrong");
     }
   };
 
-  
+  // Set Edit Item
+  const setEditItemData = (item) => {
+    setEditItem({ ...item, id: item._id }); // Ensure _id is set as id
+  };
+
+  // Update Item
+  const updateItem = async () => {
+    try {
+      await axios.put(`/api/items/edit-item/${editItem.id}`, editItem); // Use editItem.id instead of editItem._id
+      setEditItem({
+        id: "",
+        name: "",
+        price: "",
+        image: "",
+        category: "",
+      });
+      getallitems();
+      message.success("Item updated successfully");
+    } catch (error) {
+      console.error("Error while updating... ", error);
+      message.error("something went wrong");
+    }
+  };
+
   return (
     <DefaultLayout>
       <h1>Item List</h1>
 
-
-      {/* Display list of items */}
-      <ol className="list-group list-group-numbered">
-        {items.map((item) => (
-          <li key={item.id} className="list-group-item">
-            {item.name} - {item.price} - {item.category}
-            <button onClick={() => deleteItem(item.id)} className="delete-button">Delete</button>
-           
-          </li>
-        ))}
-      </ol>
-
       <button
         type="button"
-        class="btn btn-primary"
+        className="btn btn-primary add"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
       >
         Add Item
       </button>
 
+      {/* // Display list of items */}
+      <ol className="list-group list-group-numbered">
+        {items.map((item) => (
+          <li key={item.id} className="list-group-item">
+            {item.name} - {item.price} - {item.category}
+            <DeleteOutlined
+              className="delete-icon"
+              onClick={() => deleteItem(item._id)}
+            />
+            <EditOutlined
+              onClick={() => setEditItemData(item)}
+              data-bs-toggle="modal"
+              data-bs-target="#editItemModal"
+              className="edit-button"
+            />
+          </li>
+        ))}
+      </ol>
+
+     
       <div
-        class="modal fade"
+        className="modal fade"
         id="exampleModal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="exampleModalLabel">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h1 className="modal-title fs-5" id="exampleModalLabel">
                 Add Items
               </h1>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">
-              <div class="mb-3">
-                <label for="Name" class="form-label">
+            <div className="modal-body">
+              <div className="mb-3">
+                <label htmlFor="Name" className="form-label">
                   Name:
                 </label>
                 <input
@@ -105,8 +152,8 @@ const ItemPage = () => {
                   placeholder="Enter item name"
                 />
               </div>
-              <div class="mb-3">
-                <label for="Price" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="Price" className="form-label">
                   Price:
                 </label>
                 <input
@@ -118,8 +165,8 @@ const ItemPage = () => {
                   placeholder="Enter item price"
                 />
               </div>
-              <div class="mb-3">
-                <label for="Price" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="Price" className="form-label">
                   cateogry:
                 </label>
                 <input
@@ -131,8 +178,8 @@ const ItemPage = () => {
                   placeholder="Enter item category"
                 />
               </div>
-              <div class="mb-3">
-                <label for="image" class="form-label">
+              <div className="mb-3">
+                <label htmlFor="image" className="form-label">
                   Image:
                 </label>
                 <input
@@ -145,22 +192,130 @@ const ItemPage = () => {
                 />
               </div>
             </div>
-            <div class="modal-footer">
+            <div className="modal-footer">
               <button
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
                 Close
               </button>
-              <button type="button" class="btn btn-primary" onClick={additem}>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={additem}
+              >
                 Add
               </button>
             </div>
           </div>
         </div>
       </div>
-   
+
+      {/* Edit Item Modal */}
+      <div
+        className="modal fade"
+        id="editItemModal"
+        tabIndex="-1"
+        aria-labelledby="editItemModalLabel"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title" id="editItemModalLabel">
+                Edit Item
+              </h5>
+              <button
+                type="button"
+                className="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div className="modal-body">
+              <form>
+                <div className="mb-3">
+                  <label htmlFor="name" className="form-label">
+                    Name:
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    name="name"
+                    value={editItem.name}
+                    onChange={(e) =>
+                      setEditItem({ ...editItem, name: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="price" className="form-label">
+                    Price:
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="price"
+                    name="price"
+                    value={editItem.price}
+                    onChange={(e) =>
+                      setEditItem({ ...editItem, price: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="image" className="form-label">
+                    Image:
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="image"
+                    name="image"
+                    value={editItem.image}
+                    onChange={(e) =>
+                      setEditItem({ ...editItem, image: e.target.value })
+                    }
+                  />
+                </div>
+                <div className="mb-3">
+                  <label htmlFor="category" className="form-label">
+                    Category:
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="category"
+                    name="category"
+                    value={editItem.category}
+                    onChange={(e) =>
+                      setEditItem({ ...editItem, category: e.target.value })
+                    }
+                  />
+                </div>
+              </form>
+            </div>
+            <div className="modal-footer">
+              <button
+                type="button"
+                className="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={updateItem}
+              >
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </DefaultLayout>
   );
 };

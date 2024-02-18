@@ -49,9 +49,35 @@ body {
   
   
   .center {
-    margin-top: 10px; /* Adjust the margin top as needed */
+    margin-top: 10px; 
     display: block;
     margin-left: auto;
     margin-right: auto;
   }
   
+  .list-group-item {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+  }
+  
+  .delete-icon {
+    margin-left: auto; 
+  }
+  
+  .add{
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    margin-left: auto;
+    margin-bottom: 20px;
+  }
+
+  .image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    height: 75px;
+  }

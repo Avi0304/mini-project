@@ -38,6 +38,12 @@ const Resigter =  () => {
         setCredentials({...credentials, [e.target.name]: e.target.value})
     }
 
+    // useEffect(()=>{
+    //   localStorage.getItem('token');
+    //   navigate('/');
+  
+    // },[navigate]);
+
   return (
     <>
       <div className="register">

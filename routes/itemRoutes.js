@@ -11,10 +11,10 @@ router.get('/get-item',getItemController)
 router.post('/add-item', addItemController)
 
 // method -put
-router.put('/edit-item', editItemController)
+router.put('/edit-item/:itemId', editItemController);
 
 // method to delete
-router.delete('/delete-item', deleteItemController)
+router.delete('/delete-item/:id', deleteItemController)
 
 
 module.exports = router

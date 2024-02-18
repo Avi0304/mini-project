@@ -1,7 +1,7 @@
 // import "antd/dist/antd.min.css";
 import './App.css';
 import {
-  BrowserRouter as Router,Route, Routes} from "react-router-dom";
+  BrowserRouter as Router,Route, Routes, Navigate} from "react-router-dom";
 import Homepage from "./pages/Homepage";
 import ItemPage from './pages/ItemPage';
 import Resigter from './pages/Resigter';
@@ -12,10 +12,11 @@ function App() {
     <>
       <Router>
         <Routes>
-            <Route path="/" element={<Homepage/>} />
-            <Route path="/item" element={<ItemPage/>} />
+          
+            <Route path="/" element={<ProtectedRoute><Homepage/></ProtectedRoute>} />
+            <Route path="/item" element={<ProtectedRoute><ItemPage/></ProtectedRoute>} />
             <Route path="/login" element={<Login/>} />
-            <Route path="/resigter" element={<Resigter/>} />
+            <Route path="/register" element={<Resigter/>} />
         </Routes>
       </Router>
     </>
@@ -23,3 +24,12 @@ function App() {
 }
 
 export default App;
+
+export function ProtectedRoute({children}){
+  if(localStorage.getItem('token')){
+    return children;
+  }
+  else{
+    return <Navigate to="/login"/>
+  }
+}

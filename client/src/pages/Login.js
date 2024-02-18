@@ -20,16 +20,20 @@ const Login = () => {
       
       // Check if the request was successful (status code 2xx)
       if (response.ok) {
-        // Parse the response as plain text
-        const textResponse = await response.text();
-        console.log("Response from server:", textResponse);
+        // Parse the response as JSON
+        const data = await response.json();
+        console.log("Response from server:", data);
   
-        // Check if the response contains the success message
-        if (textResponse.includes("Login Succ")) {
+        // Check if the response contains the token
+        if (data.token) {
+          // Save token to local storage
+          localStorage.setItem('token', data.token);
+          
+          // Redirect to home page
           navigate("/");
           message.success("Login Successful");
         } else {
-          message.error("Login Failed: " + textResponse);
+          message.error("Login Failed: " + data.message);
         }
       } else {
         // Handle non-successful response (status code not 2xx)
@@ -40,14 +44,16 @@ const Login = () => {
       message.error("Something went wrong");
     }
   };
-  
-  
-  
-  
 
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
+
+  // useEffect(()=>{
+  //   localStorage.getItem('token');
+  //   navigate('/');
+
+  // },[navigate]);
 
   return (
     <div className="register">
@@ -84,12 +90,12 @@ const Login = () => {
             />
           </div>
           <button type="submit" className="btn btn-primary center">
-            Submit
+            Login
           </button>
         </form>
         <div className="d-flex justify-content-between">
           <p>
-            Not a user? Please <Link to="/resigter">Register Here</Link>
+            Not a user? Please <Link to="/register">Register Here</Link>
           </p>
         </div>
       </div>
