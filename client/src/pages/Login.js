@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { message } from 'antd';
@@ -48,12 +48,13 @@ const Login = () => {
   const onChange = (e) => {
     setCredentials({ ...credentials, [e.target.name]: e.target.value });
   };
-
-  // useEffect(()=>{
-  //   localStorage.getItem('token');
-  //   navigate('/');
-
-  // },[navigate]);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/');
+    }
+  }, [navigate]);
+  
 
   return (
     <div className="register">

@@ -26,7 +26,7 @@ const DefaultLayout = ({ children }) => {
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo">
           <h1 className="text-center text-light font-wight-bold mt-4">Admin</h1>
-          {/* <img src="https://cdn-icons-png.flaticon.com/128/3208/3208977.png" alt="" className="image" /> */}
+          
         </div>
         <Menu
           theme="dark"
@@ -43,10 +43,10 @@ const DefaultLayout = ({ children }) => {
             key="/logout"
             icon={<LogoutOutlined />}
             onClick={() => {
-              // Clear token from local storage
+              
               localStorage.removeItem("token");
               message.success("Logout Successfully..")
-              // Navigate to the login page
+             
               navigate("/login");
             }}
           >
