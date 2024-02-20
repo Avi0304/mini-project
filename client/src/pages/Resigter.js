@@ -21,7 +21,7 @@ const Resigter =  () => {
             });
             const textResponse = await response.text(); // Read the response as plain text
             console.log(textResponse); // Log the response
-            if (textResponse.includes("Account created successfully")) {
+            if (textResponse) {
                 navigate("/login");
                 message.success("Account created successfully");
             } else {
