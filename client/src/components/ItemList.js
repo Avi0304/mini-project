@@ -12,7 +12,7 @@ const ItemList = ({ item }) => {
           <img
             alt={item.name}
             src={item.image}
-            style={{height: 200}}
+            style={{height: 200, border: "none"}}
           />
         }
       >

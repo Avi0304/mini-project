@@ -4,7 +4,7 @@ const { loginController, registerController } = require('../controller/userContr
 const router = express.Router()
 
 // routes
-//Method - get
+//Method - post
 router.post('/login',loginController)
 
 // Method - post

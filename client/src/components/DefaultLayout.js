@@ -7,6 +7,8 @@ import {
   LogoutOutlined,
   HomeOutlined,
   UnorderedListOutlined,
+  TableOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import "../style/DefaultLayout.css";
 import {  message } from 'antd';
@@ -33,11 +35,17 @@ const DefaultLayout = ({ children }) => {
           mode="inline"
           defaultSelectedKeys={window.location.pathname}
         >
-          <Menu.Item key="/" icon={<HomeOutlined />}>
-            <Link to="/">Home</Link>
+          <Menu.Item key="/admin" icon={<HomeOutlined />}>
+            <Link to="/admin">Home</Link>
           </Menu.Item>
           <Menu.Item key="/items" icon={<UnorderedListOutlined />}>
-            <Link to="/item">Items</Link>
+            <Link to="/admin/item">Items</Link>
+          </Menu.Item>
+          <Menu.Item key="/items" icon={<TableOutlined />}>
+            <Link to="/admin/table">Book Table</Link>
+          </Menu.Item>
+          <Menu.Item key="/items" icon={<UserOutlined />}>
+            <Link to="/admin/feedback">Review</Link>
           </Menu.Item>
           <Menu.Item
             key="/logout"
@@ -47,7 +55,7 @@ const DefaultLayout = ({ children }) => {
               localStorage.removeItem("token");
               message.success("Logout Successfully..")
              
-              navigate("/login");
+              navigate("/admin/login");
             }}
           >
             Logout

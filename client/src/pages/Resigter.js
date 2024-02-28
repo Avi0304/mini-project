@@ -22,7 +22,7 @@ const Resigter =  () => {
             const textResponse = await response.text(); // Read the response as plain text
             console.log(textResponse); // Log the response
             if (textResponse) {
-                navigate("/login");
+                navigate("/admin/login");
                 message.success("Account created successfully");
             } else {
                 message.error("Something went wrong: " + textResponse);
@@ -41,7 +41,7 @@ const Resigter =  () => {
     useEffect(() => {
       const token = localStorage.getItem('token');
       if (token) {
-        navigate('/login');
+        navigate('/admin/login');
       }
     }, [navigate]);
 
@@ -49,11 +49,11 @@ const Resigter =  () => {
     <>
       <div className="register">
         <div className="register-form">
-          <h1>Restaurant Management System</h1>
-          <h3>Register Page</h3>
-          <form onSubmit={handleSubmit} >
+          {/* <h1>Restaurant Management System</h1> */}
+          <h3 className='text-center fs-2 fw-bold'>Fill the Form To Register</h3>
+          <form onSubmit={handleSubmit} style={{marginTop: "30px"}}>
             <div className="mb-3">
-              <label htmlFor="Name" className="form-label center1">
+              <label htmlFor="Name" className="form-label center1 fw-bold fs-5">
                 Name
               </label>
               <input
@@ -65,8 +65,8 @@ const Resigter =  () => {
                 placeholder="Enter your Name"
               />
             </div>
-            <div className="mb-3">
-              <label htmlFor="user" className="form-label center1">
+            <div className="mb-3 fw-bold fs-5">
+              <label htmlFor="user" className="form-label center1 ">
                 Email
               </label>
               <input
@@ -78,7 +78,7 @@ const Resigter =  () => {
                 placeholder="Enter the Email"
               />
             </div>
-            <div className="mb-3">
+            <div className="mb-3 fw-bold fs-5">
               <label htmlFor="Password" className="form-label center1">
                 Password
               </label>
@@ -91,12 +91,12 @@ const Resigter =  () => {
                 placeholder="Enter your Password"
               />
             </div>
-            <button type="submit" className="btn btn-primary center">
+            <button type="submit" className="btn btn-primary center button ">
               Register
             </button>
-            <div className="d-flex justify-content-between">
+            <div className="d-flex justify-content-between pt-4 fs-6">
             <p>
-              Already Registered? Please <Link to="/login">Login Here</Link>
+              Already Registered? Please <Link to="/admin/login">Login Here</Link>
             </p>
           </div>  
           </form>

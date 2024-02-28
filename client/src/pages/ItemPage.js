@@ -99,23 +99,40 @@ const ItemPage = () => {
       </button>
 
       {/* // Display list of items */}
-      <ol className="list-group list-group-numbered">
-        {items.map((item) => (
-          <li key={item.id} className="list-group-item">
-            {item.name} - {item.price} - {item.category}
-            <DeleteOutlined
+      <table className="table">
+  <thead>
+    <tr>
+    <th scope="col">Sr No</th>
+      <th scope="col">Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Category</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {items.map((item,index) => (
+      <tr key={item.id}>
+        <td>{index + 1}</td>
+        <td>{item.name}</td>
+        <td>{item.price}</td>
+        <td>{item.category}</td>
+        <td>
+        <DeleteOutlined
               className="delete-icon"
               onClick={() => deleteItem(item._id)}
             />
-            <EditOutlined
+          <EditOutlined
               onClick={() => setEditItemData(item)}
               data-bs-toggle="modal"
               data-bs-target="#editItemModal"
               className="edit-button"
             />
-          </li>
-        ))}
-      </ol>
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
 
      
       <div
