@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import DefaultLayout from "../components/DefaultLayout";
+import "../style/Table.css"
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 import { message } from "antd"; 
 
@@ -38,7 +39,7 @@ const ItemPage = () => {
   // Add Items
   const additem = async () => {
     try {
-      await axios.post("api/items/add-item", newItem);
+      await axios.post("/api/items/add-item", newItem);
       setNewItem({ name: "", price: "", category: "", image: "" });
       getallitems();
       message.success("Item added successfully");
@@ -87,8 +88,8 @@ const ItemPage = () => {
 
   return (
     <DefaultLayout>
-      <h1>Item List</h1>
-
+      <div style={{display: 'flex', justifyContent: 'flex-end'}}>
+      <h1 className="fw-bold text-black large-text">Item List</h1>
       <button
         type="button"
         className="btn btn-primary add"
@@ -97,6 +98,7 @@ const ItemPage = () => {
       >
         Add Item
       </button>
+      </div>
 
       {/* // Display list of items */}
       <table className="table">

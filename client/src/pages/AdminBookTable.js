@@ -37,7 +37,7 @@ const AdminBookTable = () => {
 
   return (
     <DefaultLayout>
-      <h1>Book Table</h1>
+      <h1 className="fw-bold text-black large-text">Book Table</h1>
 
       {/* Display table of tables */}
       <table className="table">

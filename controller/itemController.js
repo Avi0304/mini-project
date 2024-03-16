@@ -3,7 +3,12 @@ const itemModel = require("../models/itemModel");
 // get items
 const getItemController = async (req, res) => {
   try {
-    const items = await itemModel.find();
+    const {category} = req.query;
+    let query = {};
+    if(category){
+      query = {category}
+    }
+    const items = await itemModel.find(query);
     res.status(200).send(items);
   } catch (error) {
     console.log(error);

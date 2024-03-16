@@ -6,6 +6,7 @@ import AboutImg from '../utils/about-img.jpg';
 import { Link } from "react-router-dom";
 import { Photo } from '../components/Photo';
 import { ContactUs } from '../components/ContactUs';
+import Footer from "../components/Footer";
 
 
 
@@ -48,6 +49,7 @@ const Home = () => {
          <ContactUs/>
        
       </NavBar>
+      <Footer></Footer>
     </div>
   );
 };

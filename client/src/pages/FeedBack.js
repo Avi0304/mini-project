@@ -33,10 +33,10 @@ const FeedBack = () => {
   return (
     <DefaultLayout>
       <div className="container">
-        <h1>Reviews</h1>
+        <h1 className="fw-bold text-black large-text">Reviews</h1>
         <div className="row">
           {feedback.map((feedbackItem) => (
-            <div className="col" key={feedbackItem.id}>
+            <div className="col-md-4" key={feedbackItem.id}>
               <Feedbacklist
                 feedback={feedbackItem}
                 onDelete={deleteFeedback}

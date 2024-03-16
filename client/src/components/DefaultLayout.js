@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { Layout, Menu } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  MenuUnfoldOutlined,
-  MenuFoldOutlined,
+  // MenuUnfoldOutlined,
+  // MenuFoldOutlined,
   LogoutOutlined,
   HomeOutlined,
   UnorderedListOutlined,
@@ -12,7 +12,7 @@ import {
 } from "@ant-design/icons";
 import "../style/DefaultLayout.css";
 import {  message } from 'antd';
-const { Header, Sider, Content } = Layout;
+const { Sider, Content } = Layout; // add Header if you use toggler.
 
 
 const DefaultLayout = ({ children }) => {
@@ -25,10 +25,9 @@ const DefaultLayout = ({ children }) => {
   // eslint-disable-next-line
   return (
     <Layout>
-      <Sider trigger={null} collapsible collapsed={collapsed}>
+      <Sider trigger={null} collapsible collapsed={collapsed}> 
         <div className="logo">
           <h1 className="text-center text-light font-wight-bold mt-4">Admin</h1>
-          
         </div>
         <Menu
           theme="dark"
@@ -41,10 +40,10 @@ const DefaultLayout = ({ children }) => {
           <Menu.Item key="/items" icon={<UnorderedListOutlined />}>
             <Link to="/admin/item">Items</Link>
           </Menu.Item>
-          <Menu.Item key="/items" icon={<TableOutlined />}>
+          <Menu.Item key="/tables" icon={<TableOutlined />}>
             <Link to="/admin/table">Book Table</Link>
           </Menu.Item>
-          <Menu.Item key="/items" icon={<UserOutlined />}>
+          <Menu.Item key="/feedback" icon={<UserOutlined />}>
             <Link to="/admin/feedback">Review</Link>
           </Menu.Item>
           <Menu.Item
@@ -63,21 +62,24 @@ const DefaultLayout = ({ children }) => {
         </Menu>
       </Sider>
       <Layout className="site-layout">
-        <Header className="site-layout-background" style={{ padding: 0 }}>
-          {React.createElement(
+        {/* <Header className="site-layout-background" style={{ padding: 0 }}>
+        <div>
+        {React.createElement(
             collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
             {
               className: "trigger",
               onClick: toggle,
             }
           )}
-        </Header>
+        <h3>Admin Panel</h3>
+        </div>
+        </Header> */}
         <Content
           className="site-layout-background"
           style={{
-            margin: "24px 16px",
+            margin: "2px 7px", //24px & 16px
             padding: 24,
-            minHeight: 280,
+            minHeight: 650, //Changed this 12/03/24 6:15pm  //with toggler 520 otherwise 600
           }}
         >
           {children}
